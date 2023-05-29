@@ -9,7 +9,10 @@ export interface Props {
   commentsIds: number[];
 }
 
-export type Comment = Pick<HackerNewsItem, "id" | "url" | "score" | "text">;
+export type Comment = Pick<
+  HackerNewsItem,
+  "id" | "url" | "score" | "text" | "by"
+>;
 
 export default function Story({ title, content, commentsIds }: Props) {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -36,6 +39,7 @@ export default function Story({ title, content, commentsIds }: Props) {
       text: newComment,
       url: "",
       score: 0,
+      by: "Tu",
     };
     setComments((prevComments) => [...prevComments, comment]);
     setNewComment("");
@@ -46,7 +50,7 @@ export default function Story({ title, content, commentsIds }: Props) {
       <p>{content}</p>
 
       {hasComments && (
-        <details>
+        <details open>
           <summary>Details</summary>
           <ul className="mx-auto my-0 w-50">
             {comments.map((item) => (
@@ -71,9 +75,11 @@ export default function Story({ title, content, commentsIds }: Props) {
         </details>
       )}
 
-      <button onClick={() => fetchComments()} type="button">
-        Load comments
-      </button>
+      {!hasComments && (
+        <button onClick={() => fetchComments()} type="button">
+          Load comments
+        </button>
+      )}
     </main>
   );
 }
