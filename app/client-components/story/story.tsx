@@ -9,8 +9,10 @@ export interface Props {
   commentsIds: number[];
 }
 
+export type Comment = Pick<HackerNewsItem, "id" | "url" | "score" | "text">;
+
 export default function Story({ title, content, commentsIds }: Props) {
-  const [comments, setComments] = useState<Partial<HackerNewsItem>[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>("");
   const hasComments = comments.length > 0;
   const disabled = newComment.length === 0;
@@ -29,7 +31,7 @@ export default function Story({ title, content, commentsIds }: Props) {
   }, [commentsIds]);
 
   const addNewComment = useCallback(async () => {
-    const comment: Partial<HackerNewsItem> = {
+    const comment: Comment = {
       id: Math.random(),
       text: newComment,
       url: "",
