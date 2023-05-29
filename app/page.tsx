@@ -1,4 +1,3 @@
-"use server";
 import TopStories from "./server-components/top-stories/top-stories";
 
 export default async function Home() {
