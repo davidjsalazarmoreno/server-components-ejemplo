@@ -7,19 +7,19 @@ import Story from "@/app/client-components/story/story";
 
 export default async function TopStories() {
   const stories: HackerNewsItem[] = await (await getTopStories()).json();
-
   return (
-    <main>
-      <ul className="mx-auto my-0 w-50">
+    <section className="w-2/4 p-5 border border-red-300">
+      <ol className="w-full space-y-4 list-decimal">
         {stories.map((story) => (
-          <Story
-            key={story.id}
-            title={story.title}
-            content={story.url}
-            commentsIds={story.kids}
-          />
+          <li key={story.id}>
+            <Story
+              title={story.title}
+              url={story.url}
+              commentsIds={story.kids ?? []}
+            />
+          </li>
         ))}
-      </ul>
-    </main>
+      </ol>
+    </section>
   );
 }
