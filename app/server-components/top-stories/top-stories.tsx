@@ -1,4 +1,3 @@
-"use server";
 import {
   HackerNewsItem,
   GET as getTopStories,
