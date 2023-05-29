@@ -10,8 +10,10 @@ export interface Props {
 }
 
 export default function Story({ title, content, commentsIds }: Props) {
-  const [comments, setComments] = useState<HackerNewsItem[]>([]);
+  const [comments, setComments] = useState<Partial<HackerNewsItem>[]>([]);
+  const [newComment, setNewComment] = useState<string>("");
   const hasComments = comments.length > 0;
+  const disabled = newComment.length === 0;
 
   const fetchComments = useCallback(async () => {
     try {
@@ -26,6 +28,16 @@ export default function Story({ title, content, commentsIds }: Props) {
     }
   }, [commentsIds]);
 
+  const addNewComment = useCallback(async () => {
+    const comment: Partial<HackerNewsItem> = {
+      id: Math.random(),
+      text: newComment,
+      url: "",
+      score: 0,
+    };
+    setComments((prevComments) => [...prevComments, comment]);
+    setNewComment("");
+  }, [newComment]);
   return (
     <main>
       <h1>{title}</h1>
@@ -43,6 +55,17 @@ export default function Story({ title, content, commentsIds }: Props) {
               </li>
             ))}
           </ul>
+          <textarea
+            placeholder="Agrega un comentario"
+            onChange={(e) => setNewComment(e.target.value)}
+          ></textarea>
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => addNewComment()}
+          >
+            Agrega comentario
+          </button>
         </details>
       )}
 
