@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 const ENDPOINT = "https://hacker-news.firebaseio.com/v0";
 
-// https://github.com/HackerNews/API#items
 export interface HackerNewsItem {
   by: string;
   descendants: number;
@@ -35,6 +34,5 @@ export async function GET(request: Request) {
   const ids = params.get("ids")?.split(",") ?? [];
   const comments = await Promise.all(ids.map(getItemFromId));
 
-  console.log(ids);
   return NextResponse.json(comments);
 }

@@ -1,5 +1,4 @@
 "use client";
-
 import { HackerNewsItem } from "@/app/api/top-stories/route";
 import { useCallback, useState } from "react";
 
@@ -93,6 +92,7 @@ export default function Story({ title, url, commentsIds }: Props) {
               placeholder="Agrega un comentario"
               onChange={(e) => setNewComment(e.target.value)}
             ></textarea>
+
             <button
               type="button"
               disabled={disabled}
